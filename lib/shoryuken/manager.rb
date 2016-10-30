@@ -78,7 +78,7 @@ module Shoryuken
     def processor_died(processor, reason)
       watchdog("Manager#processor_died died") do
         logger.error { "Process died, reason: #{reason}" unless reason.to_s.empty? }
-        reason.backtrace.each { |bt| logger.error { bt } } unless reason.backtrace.nil?
+        reason.backtrace.each { |bt| logger.error { bt } } unless reason.nil? || reason.backtrace.nil?
 
         @threads.delete(processor.object_id)
         @busy.delete processor
